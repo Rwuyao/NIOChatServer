@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- configuration:配置(xml的一个根)-->
+<configuration>
+    <!--引入jdbc.propeties文件-->
+    <properties resource="config/jdbc.properties" />
+    <!--
+        environments:环境(多个环境)
+            default="development"：多个环境中默认使用的是哪一个环境
+    -->
+    <environments default="development">
+        <!--
+             environment:某一个环境 id:就是这个环境的名称
+        -->
+        <environment id="development">
+            <!--
+                transactionManager:事务管理(ACID)
+                    type="JDBC|MANAGED" jdbc:简单jdbc事务 MANAGED：啥都不做
+            -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据源(连接池) POOLED:mybatis内置的连接池 -->
+            <dataSource type="POOLED">
+                <!--四大金刚:驱动,地址,用户名,密码-->
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--引入(找到)写SQL的XML-->
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/UserGroupMapper.xml"/>
+        <mapper resource="mapper/GroupMapper.xml"/>
+    </mappers>
+</configuration>
